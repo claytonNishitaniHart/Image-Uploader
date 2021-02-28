@@ -13,6 +13,8 @@ function App() {
     setFileLink(await fileRef.getDownloadURL());
   };
 
+  const image = fileLink ? <img src={fileLink} alt='upload' /> : '';
+
   return (
     <div className="App">
       <form>
@@ -21,6 +23,7 @@ function App() {
           <input type='file' id='input' onChange={handleChange} accept='image/*' />
         </label>
       </form>
+      {image}
       <p>{fileLink}</p>
     </div>
   );
