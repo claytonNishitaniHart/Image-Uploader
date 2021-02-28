@@ -1,24 +1,27 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { app } from './base';
 
 function App() {
-  const [file, setFile] = useState({});
+  const [fileLink, setFileLink] = useState(null);
 
-  useEffect(() => {
-    const fileText = document.getElementById('text');
-    fileText.innerHTML = file.name || '';
-    console.log(file);
-  }, [file])
+  const handleChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = app.storage().ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    setFileLink(await fileRef.getDownloadURL());
+  };
 
   return (
     <div className="App">
       <form>
         <label>
           Input:
-          <input type='file' id='input' onChange={e => setFile(e.target.files[0])} />
+          <input type='file' id='input' onChange={handleChange} accept='image/*' />
         </label>
       </form>
-      <p id='text'></p>
+      <p>{fileLink}</p>
     </div>
   );
 }
