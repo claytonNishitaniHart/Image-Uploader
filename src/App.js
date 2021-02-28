@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  const [file, setFile] = useState({});
+
+  useEffect(() => {
+    const fileText = document.getElementById('text');
+    fileText.innerHTML = file.name || '';
+    console.log(file);
+  }, [file])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form>
+        <label>
+          Input:
+          <input type='file' id='input' onChange={e => setFile(e.target.files[0])} />
+        </label>
+      </form>
+      <p id='text'></p>
     </div>
   );
 }
