@@ -32,7 +32,11 @@ const Ready = ({ setSituation, setFileLink }) => {
     setSituation('done');
   }
 
-  const uploading = isUploading ? <div>uploading</div> :
+  const uploading = isUploading ?
+    <div className='uploading'>
+      <p>uploading...</p>
+      <div className='loadingBar' />
+    </div> :
     <>
       <div className='dropbox' onDragEnter={handleDrag} onDragOver={handleDrag} onDragExit={handleDrag} onDrop={handleDrop}>
         <p>drop here</p>
